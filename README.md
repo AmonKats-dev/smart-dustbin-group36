@@ -1,4 +1,9 @@
 # smart-project-group36
+![1_3g0qDLnx9UInSMusOUlxEA](https://github.com/user-attachments/assets/2ba8f5de-028f-4dc6-aba8-6883a0abbd09)
+<img width="1600" height="1200" alt="unnamed" src="https://github.com/user-attachments/assets/b31248f0-631a-453f-b961-224a6bdac077" />
+
+![esp32](https://github.com/user-attachments/assets/5ae1b5d8-cc0e-4258-8148-a4003ab16fe6)
+
 ![WhatsApp Image 2025-07-28 at 4 26 48 PM (1)](https://github.com/user-attachments/assets/5f18cf76-2161-48cb-a35b-69ad0609fc96)
 
 ![WhatsApp Image 2025-07-28 at 4 26 48 PM (3)](https://github.com/user-attachments/assets/cf74b017-4698-4886-81c8-cc43a42d0968)
