@@ -1,4 +1,4 @@
-# smart-project-group36
+# Smart Dustbin - group36
 ![1_3g0qDLnx9UInSMusOUlxEA](https://github.com/user-attachments/assets/2ba8f5de-028f-4dc6-aba8-6883a0abbd09)
 <img width="1600" height="1200" alt="unnamed" src="https://github.com/user-attachments/assets/b31248f0-631a-453f-b961-224a6bdac077" />
 
