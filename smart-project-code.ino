@@ -9,19 +9,16 @@
 #define OLED_RESET -1
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
-// Ultrasonic pins
-#define TRIG_PIN 5       // Hand detection
+// Pin definitions
+#define TRIG_PIN 5
 #define ECHO_PIN 18
-#define TRIG2_PIN 14     // Bin fullness detection
+#define TRIG2_PIN 14
 #define ECHO2_PIN 27
-
-// Other pins
 #define SERVO_GENERAL_PIN 4
 #define SERVO_PLASTIC_PIN 12
 #define BUZZER_PIN 13
 #define PLASTIC_SENSOR_PIN 32
 
-// GSM module UART2 (RX=16, TX=17)
 #define GSM_RX 16
 #define GSM_TX 17
 HardwareSerial sim800(2);
@@ -29,11 +26,11 @@ HardwareSerial sim800(2);
 Servo servoGeneral;
 Servo servoPlastic;
 
-bool smsSent = false;
+bool messageSent = false;
 
 void setup() {
   Serial.begin(115200);
-  sim800.begin(9600, SERIAL_8N1, GSM_RX, GSM_TX);  // GSM setup
+  sim800.begin(9600, SERIAL_8N1, GSM_RX, GSM_TX);
 
   pinMode(TRIG_PIN, OUTPUT);
   pinMode(ECHO_PIN, INPUT);
@@ -61,7 +58,27 @@ void setup() {
   display.setCursor(0, 0);
   display.println("Smart Bin System");
   display.display();
-  delay(2000);
+  delay(3000);
+
+  waitForNetwork();
+}
+
+void waitForNetwork() {
+  Serial.println("Checking network...");
+  for (int i = 0; i < 10; i++) {
+    sim800.println("AT+CREG?");
+    delay(500);
+    while (sim800.available()) {
+      String response = sim800.readString();
+      Serial.println("Network: " + response);
+      if (response.indexOf("+CREG: 0,1") != -1 || response.indexOf("+CREG: 0,5") != -1) {
+        Serial.println("Network connected!");
+        return;
+      }
+    }
+    delay(1000);
+  }
+  Serial.println("No network!");
 }
 
 long readDistance(int trigPin, int echoPin) {
@@ -70,51 +87,46 @@ long readDistance(int trigPin, int echoPin) {
   digitalWrite(trigPin, HIGH);
   delayMicroseconds(10);
   digitalWrite(trigPin, LOW);
-  long duration = pulseIn(echoPin, HIGH, 30000); // 30ms timeout
+  long duration = pulseIn(echoPin, HIGH, 30000);
   return duration * 0.034 / 2;
 }
 
 void sendSMS(const String &number, const String &message) {
+  Serial.println("Sending SMS to " + number);
   sim800.println("AT+CMGF=1"); // Set text mode
-  delay(100);
+  delay(1000);
   sim800.print("AT+CMGS=\"");
   sim800.print(number);
   sim800.println("\"");
-  delay(100);
-  sim800.print(message);
-  delay(100);
-  sim800.write(26);  // Ctrl+Z to send
   delay(1000);
+  sim800.print(message);
+  delay(500);
+  sim800.write(26); // Ctrl+Z to send SMS
   Serial.println("SMS sent.");
 }
 
 void loop() {
   long handDistance = readDistance(TRIG_PIN, ECHO_PIN);
   long binDistance = readDistance(TRIG2_PIN, ECHO2_PIN);
-  bool plasticDetected = digitalRead(PLASTIC_SENSOR_PIN) == LOW; // Adjust for sensor logic
+  bool plasticDetected = digitalRead(PLASTIC_SENSOR_PIN) == LOW;
 
   display.clearDisplay();
   display.setCursor(0, 0);
 
-  // Hand detection
   if (handDistance > 0 && handDistance < 20) {
     servoGeneral.write(90);
-    digitalWrite(BUZZER_PIN, HIGH);
     display.println("Bin: OPEN");
     delay(2000);
     servoGeneral.write(0);
-    digitalWrite(BUZZER_PIN, LOW);
   } else {
     display.println("Bin: CLOSED");
   }
 
-  // Hand distance display
   display.setCursor(0, 16);
   display.print("Hand Dist: ");
   display.print(handDistance);
   display.println(" cm");
 
-  // Plastic detection
   display.setCursor(0, 28);
   if (plasticDetected) {
     display.println("Plastic: YES");
@@ -125,25 +137,22 @@ void loop() {
     display.println("Plastic: NO");
   }
 
-  // Bin fullness check
   display.setCursor(0, 40);
-  if (binDistance > 0 && binDistance < 2.5) {
+  if (binDistance > 0 && binDistance < 3) {
     display.println("!!! BIN FULL !!!");
     tone(BUZZER_PIN, 1000);
-
-    if (!smsSent) {
-      sendSMS("+256YOURPHONENUMBER", "Smart Bin Alert: Bin is full. Please empty it!");
-      smsSent = true;
-    }
-
-  } else if (binDistance >= 2.5 && binDistance <= 5) {
+    messageSent = false;
+  } else if (binDistance >= 3 && binDistance <= 5) {
     display.println("Bin almost full");
     tone(BUZZER_PIN, 500);
-    smsSent = false;
+    if (!messageSent) {
+      sendSMS("+256755876969", "You have received points, keep recycling");
+      messageSent = true;
+    }
   } else {
     display.println("Bin OK");
     noTone(BUZZER_PIN);
-    smsSent = false;
+    messageSent = false;
   }
 
   display.setCursor(0, 54);
