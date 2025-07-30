@@ -1,5 +1,5 @@
 # Smart Dustbin - group36
-![1_3g0qDLnx9UInSMusOUlxEA](https://github.com/user-attachments/assets/2ba8f5de-028f-4dc6-aba8-6883a0abbd09)
+
 <img width="1600" height="1200" alt="unnamed" src="https://github.com/user-attachments/assets/b31248f0-631a-453f-b961-224a6bdac077" />
 
 ![esp32](https://github.com/user-attachments/assets/5ae1b5d8-cc0e-4258-8148-a4003ab16fe6)
