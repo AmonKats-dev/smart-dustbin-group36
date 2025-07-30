@@ -1,6 +1,6 @@
 # Smart Dustbin - group36
 
-<img width="1600" height="1200" alt="unnamed" src="https://github.com/user-attachments/assets/b31248f0-631a-453f-b961-224a6bdac077" />
+![group-36](https://github.com/user-attachments/assets/2259415c-8ecd-4627-bb2e-f3933f9a096c)
 
 ![esp32](https://github.com/user-attachments/assets/5ae1b5d8-cc0e-4258-8148-a4003ab16fe6)
 
