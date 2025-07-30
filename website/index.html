@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Dustbin - Revolutionary Waste Management</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2ecc71;
+            --secondary-color: #27ae60;
+            --accent-color: #3498db;
+            --text-dark: #2c3e50;
+            --text-light: #7f8c8d;
+            --bg-light: #ecf0f1;
+            --white: #ffffff;
+            --gradient: linear-gradient(135deg, #2ecc71, #3498db);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        header {
+            background: var(--gradient);
+            color: var(--white);
+            padding: 1rem 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            height: 70px;
+            overflow: hidden;
+        }
+
+        header.expanded {
+            height: auto;
+            padding-bottom: 1rem;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+        }
+
+        .logo::before {
+            content: "🗑️";
+            font-size: 2rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .nav-links {
+            display: none;
+            width: 100%;
+            list-style: none;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255,255,255,0.2);
+        }
+
+        header.expanded .nav-links {
+            display: flex;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            display: block;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Rest of your existing CSS remains the same */
+        /* ... (all other CSS rules remain unchanged) ... */
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            header.expanded .nav-links {
+                display: flex;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .nav-links {
+                display: flex !important;
+                flex-direction: row;
+                width: auto;
+                margin-top: 0;
+                padding-top: 0;
+                border-top: none;
+            }
+            
+            .logo {
+                cursor: default;
+            }
+        }
+
+        :root {
+            --primary-color: #2ecc71;
+            --secondary-color: #27ae60;
+            --accent-color: #3498db;
+            --text-dark: #2c3e50;
+            --text-light: #7f8c8d;
+            --bg-light: #ecf0f1;
+            --white: #ffffff;
+            --gradient: linear-gradient(135deg, #2ecc71, #3498db);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        header {
+            background: var(--gradient);
+            color: var(--white);
+            padding: 1rem 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo::before {
+            content: "🗑️";
+            font-size: 2rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: var(--gradient);
+            color: var(--white);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            animation: gridMove 20s linear infinite;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* .hero-text h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #fff, #a8e6cf);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: slideInLeft 1s ease-out;
+        }
+
+        .hero-text p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            animation: slideInLeft 1s ease-out 0.3s both;
+        } */
+
+        .cta-button {
+            display: inline-block;
+            background: var(--white);
+            color: var(--primary-color);
+            padding: 1rem 2rem;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            animation: slideInLeft 1s ease-out 0.6s both;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-visual {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: slideInRight 1s ease-out;
+        }
+
+        .dustbin-container {
+            position: relative;
+            width: 300px;
+            height: 400px;
+            margin-left: 10px;
+        }
+
+        .dustbin {
+            width: 200px;
+            height: 250px;
+            background: linear-gradient(145deg, #34495e, #2c3e50);
+            border-radius: 20px 20px 10px 10px;
+            position: relative;
+            margin: 0 auto;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .dustbin-lid {
+            width: 220px;
+            height: 30px;
+            background: linear-gradient(145deg, #3498db, #2980b9);
+            border-radius: 15px;
+            position: absolute;
+            top: -15px;
+            left: -10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            animation: lidOpen 3s ease-in-out infinite;
+        }
+
+        .sensor-indicators {
+            position: absolute;
+            top: 50px;
+            left: 20px;
+            right: 20px;
+        }
+
+        .sensor {
+            width: 12px;
+            height: 12px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            margin: 10px 0;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .sensor:nth-child(2) {
+            animation-delay: 0.5s;
+        }
+
+        .sensor:nth-child(3) {
+            animation-delay: 1s;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 6rem 0;
+            background: var(--bg-light);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--text-dark);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        .feature-card:nth-child(2) .feature-icon {
+            animation-delay: 0.3s;
+        }
+
+        .feature-card:nth-child(3) .feature-icon {
+            animation-delay: 0.6s;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .feature-card p {
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        /* How It Works */
+        .how-it-works {
+            padding: 6rem 0;
+            background: var(--white);
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .step {
+            text-align: center;
+            position: relative;
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0 auto 1rem;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .step h3 {
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .step p {
+            color: var(--text-light);
+        }
+
+        /* Stats Section */
+        .stats {
+            padding: 4rem 0;
+            background: var(--gradient);
+            color: var(--white);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .stat-item h3 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            animation: countUp 2s ease-out;
+        }
+
+        .stat-item p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* Members Section */
+        .members {
+            padding: 4rem 0;
+            /* background: var(--gradient);
+            color: var(--white); */
+        }
+
+            .members-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2rem;
+            text-align: center;
+            padding: 2px;
+        }
+
+        .member-item {
+            background-color: #f9f9f9;
+            padding: 1rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .member-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .member-item img {
+            width: 180px;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 4px solid #ddd;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .member-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .member-item p {
+            font-size: 1.1rem;
+            margin: 5px 0;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .member-item span i {
+            font-size: 0.95rem;
+            color: #666;
+        }
+
+
+        /* Contact Section */
+        .contact {
+            padding: 6rem 0;
+            background: var(--bg-light);
+        }
+
+        .contact-content {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-form {
+            display: grid;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            padding: 1rem;
+            border: none;
+            border-radius: 10px;
+            background: var(--white);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            box-shadow: 0 5px 20px rgba(52, 152, 219, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .submit-btn {
+            background: var(--gradient);
+            color: var(--white);
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--text-dark);
+            color: var(--white);
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        /* Animations */
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.1); }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes lidOpen {
+            0%, 70%, 100% { transform: rotateX(0deg); }
+            15%, 55% { transform: rotateX(-45deg); }
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(10px, 10px); }
+        }
+
+        @keyframes countUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 2rem;
+            }
+
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            /* .dustbin-container {
+                width: 150px;
+                height: 200px;
+            } */
+
+            .dustbin {
+                width: 150px;
+                height: 200px;
+            }
+
+            .dustbin-lid {
+                width: 170px;
+                left: -10px;
+            }
+        }
+
+        /* Scroll animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .hero {
+    height: 100vh;
+    background-image: url('group-36.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Semi-transparent overlay */
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    color: white;
+    text-align: center;
+    max-width: 1000px;
+    padding: 0 20px;
+    width: 100%;
+}
+
+.hero-text h1 {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+    color: white;
+    line-height: 1.2;
+    white-space: nowrap;        /* Prevents line wrapping */
+    overflow: hidden;           /* Hides overflow if too wide */
+    text-overflow: ellipsis;    /* Adds "..." if text overflows */
+    max-width: 100%;
+    display: block;
+}
+
+.hero-text p {
+    font-size: 1.3rem;
+    margin-bottom: 30px;
+    color: #e0e0e0;
+    line-height: 1.6;
+    text-align: justify;
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 12px 30px;
+    background-color: #4CAF50;
+    color: white;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.cta-button:hover {
+    background-color: #45a049;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+    .hero-text h1 {
+        font-size: 3rem;
+        white-space: normal; /* Allow wrapping on small screens for readability */
+        text-overflow: clip;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-text h1 {
+        font-size: 2.5rem;
+        line-height: 1.2;
+    }
+
+    .hero-text p {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .hero-text h1 {
+        font-size: 2rem;
+    }
+}
+        
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header id="main-header">
+        <nav>
+            <div class="logo" onclick="toggleMenu()">Smart Dustbin</div>
+            <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#how-it-works">How It Works</a></li>
+                <li><a href="#group-members">Group Members</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+    <div class="hero-content">
+        <div class="hero-text">
+            <h1>Revolutionary Smart Dustbin</h1>
+            <p>Experience the future of waste management with our intelligent, touchless, and eco-friendly smart dustbin system.</p>
+            <a href="#features" class="cta-button">Discover Features</a>
+        </div>
+    </div>
+</section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <h2 class="section-title fade-in">Amazing Features</h2>
+            <div class="features-grid">
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">🤖</div>
+                    <h3>Touchless Operation</h3>
+                    <p>Automatic lid opening using ultrasonic sensors for complete hygiene and contactless waste disposal.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">♻️</div>
+                    <h3>Smart Sorting</h3>
+                    <p>Intelligent waste detection and automatic sorting of plastic and general waste using advanced sensors.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">📊</div>
+                    <h3>Predictive Analytics</h3>
+                    <p>Real-time fill level monitoring with predictive capabilities to optimize collection schedules.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">📱</div>
+                    <h3>Smart Alerts</h3>
+                    <p>Instant Wi-Fi and SMS notifications to waste management teams when bins need collection.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">🏆</div>
+                    <h3>User Rewards</h3>
+                    <p>Positive feedback system that rewards users for proper plastic waste disposal and recycling.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">🌱</div>
+                    <h3>Eco-Friendly</h3>
+                    <p>Promoting sustainable practices and reducing environmental impact through smart technology.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="how-it-works">
+        <div class="container">
+            <h2 class="section-title fade-in">How It Works</h2>
+            <div class="steps">
+                <div class="step fade-in">
+                    <div class="step-number">1</div>
+                    <h3>Approach Detection</h3>
+                    <p>Ultrasonic sensors detect when someone approaches the dustbin and automatically open the lid.</p>
+                </div>
+                <div class="step fade-in">
+                    <div class="step-number">2</div>
+                    <h3>Waste Analysis</h3>
+                    <p>Multiple sensors analyze the waste material, weight, and type for intelligent classification.</p>
+                </div>
+                <div class="step fade-in">
+                    <div class="step-number">3</div>
+                    <h3>Smart Sorting</h3>
+                    <p>Automated mechanism sorts waste into appropriate compartments based on sensor analysis.</p>
+                </div>
+                <div class="step fade-in">
+                    <div class="step-number">4</div>
+                    <h3>Monitor & Alert</h3>
+                    <p>System tracks fill levels and sends alerts when collection is needed.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item fade-in">
+                    <h3>99%</h3>
+                    <p>Hygiene Improvement</p>
+                </div>
+                <div class="stat-item fade-in">
+                    <h3>75%</h3>
+                    <p>Better Recycling</p>
+                </div>
+                <div class="stat-item fade-in">
+                    <h3>60%</h3>
+                    <p>Cost Reduction</p>
+                </div>
+                <div class="stat-item fade-in">
+                    <h3>100%</h3>
+                    <p>Contactless</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Group Members Section -->
+     <section id="group-members" class="members">
+        <div class="container">
+            <h2 class="section-title">Group 36 Members</h2>
+            <p style="text-align: center; margin-bottom: 55px; font-size: 20px;">The following below are the group members with their respective roles in this project</p>
+            <div class="members-grid">
+                <div class="member-item fade-in">
+                    <img src="amon.jpeg" width="400" height="400">
+                    <p>Namaara Amon</p><span><i>24/U/25967/EVE</i></span>
+                    <p>Project Manager</p>
+                </div>
+                <div class="member-item fade-in">
+                    <img src="emma.jpeg" width="400" height="400">
+                    <p>Mugerwa Emmanuel</p><span><i>24/U/07014/EVE</i></span>
+                    <p>Requirements Analyst</p>
+                </div>
+                <div class="member-item fade-in">
+                    <img src="edson.jpeg" width="400" height="400">
+                    <p>Talemwa Edson </p><span><i>24/U/11423/EVE</i></span>
+                    <p>Systems Integrator</p>
+                </div>
+                <div class="member-item fade-in">
+                    <img src="denis.jpeg" width="400" height="400">
+                    <p>Musinguzi Denis</p><span><i>24/U/07425/PS</i></span>
+                    <p>Hardware Engineer</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="contact-content fade-in">
+                <h2 class="section-title">Get In Touch</h2>
+                <p>Interested in implementing Smart Dustbin technology? Let's discuss how we can revolutionize waste management together.</p>
+                
+                <form class="contact-form">
+                    <input type="text" placeholder="Your Name" required>
+                    <input type="email" placeholder="Your Email" required>
+                    <input type="text" placeholder="Organization" required>
+                    <textarea rows="5" placeholder="Your Message" required></textarea>
+                    <button type="submit" class="submit-btn">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Smart Dustbin Project. Revolutionizing waste management for a cleaner future.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Header scroll effect
+        let lastScroll = 0;
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > 100) {
+                header.style.background = 'rgba(46, 204, 113, 0.95)';
+                header.style.backdropFilter = 'blur(10px)';
+            } else {
+                header.style.background = 'linear-gradient(135deg, #2ecc71, #3498db)';
+                header.style.backdropFilter = 'none';
+            }
+            
+            lastScroll = currentScroll;
+        });
+
+        // Form submission
+        document.querySelector('.contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(this);
+            const submitBtn = this.querySelector('.submit-btn');
+            
+            // Visual feedback
+            submitBtn.textContent = 'Sending...';
+            submitBtn.style.background = '#27ae60';
+            
+            // Simulate form submission
+            setTimeout(() => {
+                submitBtn.textContent = 'Message Sent! ✓';
+                submitBtn.style.background = '#2ecc71';
+                
+                // Reset form
+                this.reset();
+                
+                // Reset button after 3 seconds
+                setTimeout(() => {
+                    submitBtn.textContent = 'Send Message';
+                    submitBtn.style.background = '';
+                }, 3000);
+            }, 1500);
+        });
+
+        // Add some interactive effects
+        document.querySelectorAll('.feature-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-15px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(-10px) scale(1)';
+            });
+        });
+
+        // Animated counter for stats
+        const animateCounter = (element, target) => {
+            let current = 0;
+            const increment = target / 100;
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    element.textContent = target + (element.textContent.includes('%') ? '%' : '');
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.floor(current) + (element.textContent.includes('%') ? '%' : '');
+                }
+            }, 20);
+        };
+
+        // Trigger counter animation when stats section is visible
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const statNumbers = entry.target.querySelectorAll('.stat-item h3');
+                    statNumbers.forEach(stat => {
+                        const target = parseInt(stat.textContent);
+                        animateCounter(stat, target);
+                    });
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        });
+
+        const statsSection = document.querySelector('.stats');
+        if (statsSection) {
+            statsObserver.observe(statsSection);
+        }
+
+        function toggleMenu() {
+            if (window.innerWidth <= 768) {
+                const header = document.getElementById('main-header');
+                header.classList.toggle('expanded');
+            }
+        }
+
+        // Close menu when clicking a link (mobile only)
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', function() {
+                if (window.innerWidth <= 768) {
+                    document.getElementById('main-header').classList.remove('expanded');
+                }
+            });
+        });
+
+        // Auto-hide menu when resizing to desktop
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                document.getElementById('main-header').classList.remove('expanded');
+            }
+        });
+
+    </script>
+</body>
+</html>
